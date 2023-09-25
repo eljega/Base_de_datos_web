@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Núcleo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #222e6a;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #888888;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        label {
+            flex-basis: calc(50% - 10px);
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            flex-basis: calc(50% - 10px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"],
+        .boton-volver {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex-basis: 100%;
+        }
+
+        input[type="submit"]:hover,
+        .boton-volver:hover {
+            background-color: #222e6a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agregar Núcleo</h1>
+    <form method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre">
+
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo">
+
+        <label for="fecha_apertura">Fecha de Apertura:</label>
+        <input type="date" id="fecha_apertura" name="fecha_apertura">
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion">
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono">
+
+        <label for="estatus_inmueble">Estatus del Inmueble:</label>
+        <select id="estatus_inmueble" name="estatus_inmueble">
+            <option value="Comodato">Comodato</option>
+            <option value="Alquilado">Alquilado</option>
+            <option value="Prestado">Prestado</option>
+            <option value="Propio">Propio</option>
+        </select>
+
+        <label for="infraestructura">Infraestructura:</label>
+        <textarea id="infraestructura" name="infraestructura" rows="4" cols="50"></textarea>
+
+        <input type="submit" value="Agregar Núcleo">
+    </form>
+    <button class="boton-volver" onclick="volverAtras()">Volver</button>
+
+    <script>
+        function volverAtras() {
+            window.location.href = "/nucleos"; // Cambia la URL a la que deseas volver
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Alumno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #222e6a;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #888888;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: -10px;
+            
+        }
+
+        th {
+            padding-left: 20px; /* Ajusta el valor para mover el texto a la derecha */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #222e6a;
+        }
+
+        .back-button {
+            background-color: #ccc;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agregar Alumno</h1>
+    <form method="POST">
+        <table>
+            <tr>
+                <th>Nombre:</th>
+                <td><input type="text" id="nombre" name="nombre"></td>
+                <th>Apellido:</th>
+                <td><input type="text" id="apellido" name="apellido"></td>
+            </tr>
+            <tr>
+                <th>Edad:</th>
+                <td><input type="number" id="edad" name="edad"></td>
+                <th>Fecha de Nacimiento:</th>
+                <td><input type="date" id="fecha_nacimiento" name="fecha_nacimiento"></td>
+            </tr>
+            <tr>
+                <th>Número de Documento:</th>
+                <td><input type="text" id="numero_documento" name="numero_documento"></td>
+                <th>Descripción:</th>
+                <td><textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea></td>
+            </tr>
+            <tr>
+                <th>ID del Núcleo:</th>
+                <td><input type="number" id="id_nucleo" name="id_nucleo"></td>
+                <th>Cátedra:</th>
+                <td><input type="text" id="catedra" name="catedra"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Agregar Alumno">
+    </form>
+    <button class="back-button" onclick="window.history.back()">Volver</button>
+</body>
+</html>

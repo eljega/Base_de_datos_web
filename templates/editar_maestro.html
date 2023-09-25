@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Personal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #222e6a;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #888888;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        label {
+            flex-basis: calc(50% - 10px);
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            flex-basis: calc(50% - 10px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex-basis: 100%;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #222e6a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Personal</h1>
+    <form method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{ maestro[1] }}">
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" value="{{ maestro[7] }}">
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" value="{{ maestro[2] }}">
+
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ maestro[3] }}">
+
+        <label for="numero_documento">Número de Documento:</label>
+        <input type="text" id="numero_documento" name="numero_documento" value="{{ maestro[4] }}">
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50">{{ maestro[5] }}</textarea>
+
+        <label for="cargo">Cargo:</label>
+        <input type="text" id="cargo" name="cargo" value="{{ maestro[8] }}">
+
+        <label for="funcion">Función:</label>
+        <input type="text" id="funcion" name="funcion" value="{{ maestro[9] }}">
+
+        <label for="nivel_educativo">Nivel Educativo:</label>
+        <input type="text" id="nivel_educativo" name="nivel_educativo" value="{{ maestro[10] }}">
+
+        <label for="fecha_ingreso">Fecha de Ingreso:</label>
+        <input type="date" id="fecha_ingreso" name="fecha_ingreso" value="{{ maestro[11] }}">
+
+        <label for="id_nucleo">ID del Núcleo:</label>
+        <input type="number" id="id_nucleo" name="id_nucleo" value="{{ maestro[6] }}">
+
+        <!-- Campo de selección para el estatus -->
+        <label for="estatus">Estatus:</label>
+        <select id="estatus" name="estatus">
+            <option value="Activo" {% if maestro[12] == 'Activo' %}selected{% endif %}>Activo</option>
+            <option value="Inactivo" {% if maestro[12] == 'Inactivo' %}selected{% endif %}>Inactivo</option>
+        </select>
+
+        <input type="submit" name="editar" value="Guardar">
+    </form>
+    <button onclick="window.location.href='/personal'">Volver</button>
+</body>
+</html>
+
+

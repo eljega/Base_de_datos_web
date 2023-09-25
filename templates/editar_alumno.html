@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Alumno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #000000;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #888888;
+            margin-top: 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        label {
+            font-size: 18px;
+            color: #222e6a;
+            flex: 1 0 30%;
+            margin-right: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea {
+            flex: 2 0 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #222e6a;
+        }
+
+        a {
+            text-decoration: none;
+            color: #5965b1;
+            font-size: 18px;
+            margin-top: 10px;
+            display: inline-block;
+            flex: 1 0 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Alumno</h1>
+    <form method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{ alumno[1] }}">
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" value="{{ alumno[8] }}">
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" value="{{ alumno[2] }}">
+
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ alumno[3] }}">
+
+        <label for="numero_documento">Número de Documento:</label>
+        <input type="text" id="numero_documento" name="numero_documento" value="{{ alumno[4] }}">
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50">{{ alumno[5] }}</textarea>
+
+        <label for="id_nucleo">ID del Núcleo:</label>
+        <input type="number" id="id_nucleo" name="id_nucleo" value="{{ alumno[6] }}">
+
+        <label for="catedra">Cátedra:</label>
+        <input type="text" id="catedra" name="catedra" value="{{ alumno[7] }}">
+
+        <input type="submit" name="editar" value="Guardar">
+    
+        <!-- Botón para confirmar eliminación -->
+        <button type="button" onclick="confirmarEliminacion('{{ alumno[0] }}')">Eliminar</button>
+
+    </form>
+
+    <a href="{{ url_for('alumnos.lista_alumnos') }}">Volver a la Lista de Alumnos</a>
+
+    <!-- Script JavaScript para confirmar la eliminación -->
+    <script>
+        function confirmarEliminacion(alumnoId) {
+            if (confirm("¿Estás seguro de que deseas eliminar a este alumno?")) {
+                console.log("ID del alumno a eliminar: " + alumnoId);
+                // Envía una solicitud POST a la URL de eliminación
+                fetch("{{ url_for('alumnos.eliminar_alumno', id=alumno[0]) }}", { method: 'POST' })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Si se redirige después de la eliminación, navega a la nueva ubicación
+                            window.location.href = response.url;
+                        }
+                    });
+            }
+        }
+    </script>
+</body>
+</html>
+
+

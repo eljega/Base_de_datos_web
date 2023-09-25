@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Personal</title>
+    <style>
+        /* Estilos para el contenedor principal */
+        .container {
+            text-align: center; /* Centrar el contenido horizontalmente */
+            background-color: #f2f2f2; /* Color de fondo */
+            padding: 20px; /* Espacio alrededor del contenido */
+        }
+
+        /* Estilos para el título */
+        h1 {
+            color: #000000; /* Color del texto del título */
+            font-size: 36px; /* Tamaño de fuente del título */
+        }
+
+        /* Estilos para la barra de búsqueda */
+        form {
+            margin-top: 20px; /* Espacio superior */
+        }
+
+        label {
+            font-size: 18px; /* Tamaño de fuente de la etiqueta */
+        }
+
+        input[type="text"] {
+            width: 300px; /* Ancho de la barra de búsqueda */
+            padding: 5px; /* Espacio dentro de la barra de búsqueda */
+        }
+
+        .boton-buscar[type="submit"] {
+            background-color: #5965b1; /* Color de fondo del botón */
+            color: #fff; /* Color del texto del botón */
+            border: none; /* Quitar borde del botón */
+            border-radius: 5px; /* Borde redondeado del botón */
+            padding: 10px 20px; /* Espacio dentro del botón */
+            cursor: pointer; /* Cambiar el cursor al pasar por encima del botón */
+        }
+
+        /* Estilos para la tabla principal */
+        .tabla-principal {
+            border: 1px solid #000000; /* Borde de 1px con color gris para la tabla principal */
+            width: 100%;
+            margin-top: 20px; /* Espacio superior */
+        }
+
+        .tabla-principal th,
+        .tabla-principal td {
+            padding: 0px; /* Espacio dentro de las celdas */
+            padding-top: -6px;
+            border: 4px solid #000000;
+        }
+
+        /* Estilos para las filas impares de la tabla principal */
+        .tabla-principal tbody tr:nth-child(odd) {
+            background-color: #ff862f9b; /* Color de fondo para las filas impares */
+        }
+
+        /* Estilos para las filas pares de la tabla principal */
+        .tabla-principal tbody tr:nth-child(even) {
+            background-color: #1c7fcb68; /* Color de fondo para las filas pares */
+        }
+
+        /* Estilos para la tabla secundaria */
+        .tabla-secundaria {
+            border: 10px solid #ff00e1; /* Borde de 1px con color negro para la tabla secundaria */
+            width: 100%;
+            margin-top: 20px; /* Espacio superior */
+        }
+
+        .tabla-secundaria th,
+        .tabla-secundaria td {
+            padding: 0px; /* Espacio dentro de las celdas */
+            padding-top: -6px;
+        }
+
+        /* Estilos para las filas impares de la tabla secundaria */
+        .tabla-secundaria tbody tr:nth-child(odd) {
+            background-color: #f2f2f2; /* Color de fondo para las filas impares */
+        }
+
+        /* Estilos para las filas pares de la tabla secundaria */
+        .tabla-secundaria tbody tr:nth-child(even) {
+            background-color: #ccc; /* Color de fondo para las filas pares */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Personal</h1>
+        
+        <!-- Barra de búsqueda -->
+        <form method="GET">
+            <label for="busqueda">Buscar Personal:</label>
+            <input type="text" id="busqueda" name="busqueda" placeholder="Nombre, Documento o ID">
+            <input type="submit" value="Buscar" class="boton-buscar">
+        </form>
+
+    <!-- Añadir un espacio entre la barra de búsqueda y los botones -->
+    <div style="margin-top: 20px;"></div>
+        
+    <!-- Botones para Mostrar Todos y Agregar Maestro -->
+    <form method="GET" style="display: inline;">
+        <input type="submit" name="mostrar_todos" value="Mostrar Todos" class="boton-estandar">
+    </form>
+
+    </form>
+    
+    {% if current_user.rol == 'supremo' or current_user.rol == 'medio' %}
+    <a href="/personal/agregar_personal" class="boton-estandar">Agregar Personal</a>
+    {% endif %}
+    <a href="/inicio" class="volver-button">Volver</a>
+    <style> 
+    
+        /* Estilos para los botones estándar */
+        .boton-estandar {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        /* Estilos para los botones dentro de la tabla */
+.boton-editar {
+    background-color: #222e6a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 15px; /* Ajusta el tamaño deseado */
+    margin-left: 20px; /* Ajusta la separación horizontal */
+    cursor: pointer;
+    position: relative; /* Usa posicionamiento relativo */
+    left: -12px; /* Ajusta la posición horizontal */
+    top: 8px; /* Ajusta la posición vertical hacia abajo */
+}
+
+        .boton-eliminar {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 3px 40px; /* Ajusta el tamaño deseado */
+            margin-left: 10px; /* Ajusta la separación horizontal */
+            cursor: pointer;
+            position: relative; /* Usa posicionamiento relativo */
+            left: -8px; /* Ajusta la posición horizontal */
+            top: -3px; /* Ajusta la posición vertical hacia abajo */
+        }
+    
+       /* Estilos para el botón "Volver" */
+/* Estilos para el botón "Volver" */
+.volver-button {
+    background-color: #222e6a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: absolute; /* Cambiado a posicionamiento absoluto */
+    top: 158px; /* Ajusta la distancia desde la parte superior */
+    right: 27px; /* Ajusta la distancia desde la derecha */
+}
+
+
+    </style>    
+
+    <div class="table-container"></div>
+        <table class="tabla-principal">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Número de Documento</th>
+                    <th>Descripción</th>
+                    <th>Cargo</th>
+                    <th>Función</th>
+                    <th>Nivel Educativo</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>ID del Núcleo</th>
+                    <th>Estatus</th> <!-- Agregar la columna de Estatus -->
+                    {% if current_user.rol == 'supremo' or current_user.rol == 'medio' %}
+                    <th colspan="2">Acciones</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for maestro in maestros %}
+                <tr>
+                    <td><span class="nombre-personal">{{ maestro[1] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[7] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[2] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[3] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[4] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[5] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[8] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[9] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[10] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[11] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[6] }}</span></td>
+                    <td><span class="nombre-personal">{{ maestro[12] }}</span></td> <!-- Mostrar el Estatus -->
+                    <td>
+                        {% if current_user.rol == 'supremo' or current_user.rol == 'medio' %}
+                        <a href="{{ url_for('maestros.editar_maestro', id=maestro[0]) }}" class="boton-editar">Editar</a>
+                        <form method="POST" action="/eliminar_personal/{{ maestro[0] }}" onsubmit="return confirm('¿Estás seguro de eliminar a este maestro?');">
+                            <input type="submit" value="Eliminar" class="boton-eliminar">
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <style>
+            /* Estilos para los nombres de los maestros */
+            .nombre-personal {
+                color: #000000; /* Cambiar a tu color deseado */
+                font-family: Arial, sans-serif; /* Cambiar a tu fuente deseada */
+                font-size: 16px; /* Cambiar el tamaño de fuente deseado */
+                font-weight: bold; /* Opciones: normal, bold, bolder, lighter, 100, 200, 300, 400, 500, 600, 700, 800, 900 */
+            }
+        </style>
+        <!-- Tabla secundaria -->
+        
+    
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+

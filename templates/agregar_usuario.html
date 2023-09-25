@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Usuario</title>
+</head>
+<body>
+    <h1>Agregar Usuario</h1>
+    <form method="POST">
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" required><br><br>
+
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required><br><br>
+
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol">
+            <option value="supremo">Supremo</option>
+            <option value="medio">Medio</option>
+            <option value="basico">Básico</option>
+        </select><br><br>
+
+        <input type="submit" value="Agregar Usuario">
+    </form>
+</body>
+</html>

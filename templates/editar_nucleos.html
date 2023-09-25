@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Núcleo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #222e6a;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #888888;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        label {
+            flex-basis: calc(50% - 10px);
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            flex-basis: calc(50% - 10px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"],
+        button,
+        a {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex-basis: 100%;
+            margin-top: 10px; /* Espaciado vertical */
+        }
+
+        button {
+            background-color: #444;
+        }
+
+        input[type="submit"]:hover,
+        button:hover,
+        a:hover {
+            background-color: #222e6a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Núcleo</h1>
+    <form method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{ nucleo[1] }}">
+
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" value="{{ nucleo[4] }}">
+
+        <label for="fecha_apertura">Fecha de Apertura:</label>
+        <input type="date" id="fecha_apertura" name="fecha_apertura" value="{{ nucleo[5] }}">
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" value="{{ nucleo[6] }}">
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" value="{{ nucleo[7] }}">
+
+        <label for="estatus_inmueble">Estatus del Inmueble:</label>
+        <select id="estatus_inmueble" name="estatus_inmueble">
+            <option value="Comodato" {% if nucleo[6] == 'Comodato' %}selected{% endif %}>Comodato</option>
+            <option value="Alquilado" {% if nucleo[6] == 'Alquilado' %}selected{% endif %}>Alquilado</option>
+            <option value="Prestado" {% if nucleo[6] == 'Prestado' %}selected{% endif %}>Prestado</option>
+            <option value="Propio" {% if nucleo[6] == 'Propio' %}selected{% endif %}>Propio</option>
+        </select>
+
+        <label for="infraestructura">Infraestructura:</label>
+        <textarea id="infraestructura" name="infraestructura" rows="4" cols="50">{{ nucleo[7] }}</textarea>
+
+        <button type="button" onclick="confirmarEliminacion('{{ nucleo[0] }}')">Eliminar</button>
+        <input type="submit" name="editar" value="Guardar">
+    </form>
+
+    <a href="{{ url_for('nucleos.lista_nucleos') }}" style="margin-top: 10px;">Volver a la Lista de Núcleos</a>
+
+    <!-- Script JavaScript para confirmar la eliminación -->
+    <script>
+        function confirmarEliminacion(nucleoId) {
+            if (confirm("¿Estás seguro de que deseas eliminar este núcleo?")) {
+                console.log("ID del núcleo a eliminar: " + nucleoId);
+                // Envía una solicitud POST a la URL de eliminación
+                fetch("{{ url_for('nucleos.eliminar_nucleo', id=nucleo[0]) }}", { method: 'POST' })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Si se redirige después de la eliminación, navega a la nueva ubicación
+                            window.location.href = response.url;
+                        }
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

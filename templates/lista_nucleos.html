@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Nucleos</title>
+    <style>
+        /* Estilos para el contenedor principal */
+        .container {
+            text-align: center; /* Centrar el contenido horizontalmente */
+            background-color: #f2f2f2; /* Color de fondo */
+            padding: 20px; /* Espacio alrededor del contenido */
+        }
+
+        /* Estilos para el título */
+        h1 {
+            color: #000000; /* Color del texto del título */
+            font-size: 36px; /* Tamaño de fuente del título */
+        }
+
+        /* Estilos para la barra de búsqueda */
+        form {
+            margin-top: 20px; /* Espacio superior */
+        }
+
+        label {
+            font-size: 18px; /* Tamaño de fuente de la etiqueta */
+        }
+
+        input[type="text"] {
+            width: 300px; /* Ancho de la barra de búsqueda */
+            padding: 5px; /* Espacio dentro de la barra de búsqueda */
+        }
+
+        .boton-buscar[type="submit"] {
+            background-color: #5965b1; /* Color de fondo del botón */
+            color: #fff; /* Color del texto del botón */
+            border: none; /* Quitar borde del botón */
+            border-radius: 5px; /* Borde redondeado del botón */
+            padding: 10px 20px; /* Espacio dentro del botón */
+            cursor: pointer; /* Cambiar el cursor al pasar por encima del botón */
+        }
+
+        /* Estilos para la tabla principal */
+        .tabla-principal {
+            border: 1px solid #000000; /* Borde de 1px con color gris para la tabla principal */
+            width: 100%;
+            margin-top: 20px; /* Espacio superior */
+        }
+
+        .tabla-principal th,
+        .tabla-principal td {
+            padding: 0px; /* Espacio dentro de las celdas */
+            padding-top: -6px;
+            border: 4px solid #000000;
+        }
+
+        /* Estilos para las filas impares de la tabla principal */
+        .tabla-principal tbody tr:nth-child(odd) {
+            background-color: #ff862f9b; /* Color de fondo para las filas impares */
+        }
+
+        /* Estilos para las filas pares de la tabla principal */
+        .tabla-principal tbody tr:nth-child(even) {
+            background-color: #1c7fcb68; /* Color de fondo para las filas pares */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Nucleos</h1>
+        
+        <!-- Barra de búsqueda -->
+        <form method="GET">
+            <label for="busqueda">Buscar Nucleos:</label>
+            <input type="text" id="busqueda" name="busqueda" placeholder="Nombre, Ubicacion o Direccion">
+            <input type="submit" value="Buscar" class="boton-buscar">
+        </form>
+
+    <!-- Añadir un espacio entre la barra de búsqueda y los botones -->
+    <div style="margin-top: 20px;"></div>
+        
+    <!-- Botones para Mostrar Todos y Agregar Nucleo -->
+    <form method="GET" style="display: inline;">
+        <input type="submit" name="mostrar_todos" value="Mostrar Todos" class="boton-estandar">
+    </form>
+
+   </form>
+        
+    {% if current_user.rol == 'supremo' or current_user.rol == 'medio' %}
+    <a href="/nucleos/agregar_nucleo" class="boton-estandar">Agregar Nucleo</a>
+    {% endif %}
+    <a href="/inicio" class="volver-button">Volver</a>
+    <style>
+        /* Estilos para los botones estándar */
+        .boton-estandar {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    
+            /* Estilos para los botones dentro de la tabla */
+.boton-editar {
+    background-color: #222e6a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 15px; /* Ajusta el tamaño deseado */
+    margin-left: 20px; /* Ajusta la separación horizontal */
+    cursor: pointer;
+    position: relative; /* Usa posicionamiento relativo */
+    left: -12px; /* Ajusta la posición horizontal */
+    top: 8px; /* Ajusta la posición vertical hacia abajo */
+}
+    
+            .boton-eliminar {
+                background-color: #5965b1;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 3px 40px; /* Ajusta el tamaño deseado */
+                margin-left: 10px; /* Ajusta la separación horizontal */
+                cursor: pointer;
+                position: relative; /* Usa posicionamiento relativo */
+                left: -8px; /* Ajusta la posición horizontal */
+                top: -3px; /* Ajusta la posición vertical hacia abajo */
+            }
+            
+/* Estilos para el botón "Volver" */
+.volver-button {
+    background-color: #222e6a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: absolute; /* Cambiado a posicionamiento absoluto */
+    top: 158px; /* Ajusta la distancia desde la parte superior */
+    right: 27px; /* Ajusta la distancia desde la derecha */
+}
+    </style>
+    
+
+    <div class="table-container">
+        <!-- Tabla principal -->
+        <table class="tabla-principal">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Codigo</th>
+                    <th>Fecha de Apertura</th>
+                    <th>Direccion</th>
+                    <th>Teléfono</th>
+                    <th>Estatus del Inmueble</th>
+                    <th>Infraestructura</th>
+                    {% if current_user.rol == 'supremo' or current_user.rol == 'medio' %}
+                    <th colspan="2">Acciones</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for nucleo in nucleos %}
+                <tr>
+                    <td><span class = "nombre-nucleo">{{ nucleo[1] }}</span></td>
+                    <td><span class = "nombre-nucleo">{{ nucleo[4] }}</span></td>
+                    <td><span class = "nombre-nucleo">{{ nucleo[5] }}</span></td>
+                    <td><span class = "nombre-nucleo">{{ nucleo[6] }}</span></td>
+                    <td><span class = "nombre-nucleo">{{ nucleo[7] }}</span></td>
+                    <td><span class = "nombre-nucleo">{{ nucleo[8] }}</span></td>
+                    <td><span class = "nombre-nucleo">{{ nucleo[9] }}</span></td>
+                    <td>
+                        {% if current_user.rol == 'supremo' or current_user.rol == 'medio' %}
+                        <a href="{{ url_for('nucleos.editar_nucleo', id=nucleo[0]) }}" class="boton-editar">Editar</a>
+                        <form method="POST" action="/eliminar_nucleos/{{ nucleo[0] }}" onsubmit="return confirm('¿Estás seguro de eliminar a este nucleo?');">
+                            <input type="submit" value="Eliminar" class="boton-eliminar">
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <style>
+            /* Estilos para los nombres de los alumnos */
+            .nombre-nucleo {
+                color: #000000; /* Cambiar a tu color deseado */
+                font-family: Arial, sans-serif; /* Cambiar a tu fuente deseada */
+                font-size: 16px; /* Cambiar el tamaño de fuente deseado */
+                font-weight: bold; /* Opciones: normal, bold, bolder, lighter, 100, 200, 300, 400, 500, 600, 700, 800, 900 */
+            }
+        </style>
+        
+
+        <!-- Tabla secundaria 
+        <table class="tabla-secundaria">
+            otra tabla
+        </table>-->
+        
+    </div>
+</div>
+</body>
+</html>

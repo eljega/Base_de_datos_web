@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #222e6a;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        ul li a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #5965b1;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20px;
+            transition: background-color 0.3s;
+        }
+
+        ul li a:hover {
+            background-color: #222e6a;
+        }
+
+        a.logout-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        a.logout-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido, {{ current_user.usuario }}</h1>
+    <p>Tu rol: {{ current_user.rol }}</p>
+    <ul>
+        {% if current_user.rol == 'supremo' %}
+        <li><a href="/alumnos">Gestionar Alumnos</a></li>
+        <li><a href="/personal">Gestionar Personal</a></li>
+        <li><a href="/nucleos">Gestionar Núcleos</a></li>
+        <li><a href="/instrumentos">Gestionar Bienes</a></li>
+        {% elif current_user.rol == 'medio' %}
+        <li><a href="/alumnos">Gestionar Alumnos</a></li>
+        <li><a href="/personal">Gestionar Personal</a></li>
+        <li><a href="/nucleos">Gestionar Núcleos</a></li>
+        <li><a href="/instrumentos">Gestionar Bienes</a></li>
+        {% elif current_user.rol == 'basico' %}
+        <!-- Mostrar solo los enlaces según el ID_Nucleo del usuario básico -->
+        <li><a href="/alumnos">Gestionar Alumnos</a></li>
+        <li><a href="/personal">Gestionar Personal</a></li>
+        <li><a href="/nucleos">Gestionar Núcleos</a></li>
+        <li><a href="/instrumentos">Gestionar Bienes</a></li>
+        {% endif %}
+    </ul>
+    <a href="/logout" class="logout-button">Cerrar Sesión</a>
+</body>
+</html>
+

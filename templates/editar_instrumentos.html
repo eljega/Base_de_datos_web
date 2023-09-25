@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Bienes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #222e6a;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #888888;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        label {
+            flex-basis: calc(50% - 10px);
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            flex-basis: calc(50% - 10px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        select {
+            flex-basis: calc(50% - 10px);
+        }
+
+        input[type="submit"],
+        button,
+        a {
+            background-color: #5965b1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex-basis: 100%;
+            margin-top: 10px; /* Espaciado vertical */
+        }
+
+        input[type="submit"]:hover,
+        button:hover,
+        a:hover {
+            background-color: #222e6a;
+        }
+
+        button {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Bienes</h1>
+    <form method="POST">
+        <label for="item">Item:</label>
+        <input type="text" id="item" name="item" value="{{ instrumento[1] }}">
+
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" value="{{ instrumento[2] }}">
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="cantidad" value="{{ instrumento[3] }}">
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" value="{{ instrumento[4] }}">
+
+        <label for="medida">Medida:</label>
+        <input type="text" id="medida" name="medida" value="{{ instrumento[5] }}">
+
+        <label for="color">Color:</label>
+        <select id="color" name="color">
+            <option value="amarillo" {% if instrumento[6] == 'amarillo' %}selected{% endif %}>Amarillo</option>
+            <option value="azul" {% if instrumento[6] == 'azul' %}selected{% endif %}>Azul</option>
+            <option value="marron" {% if instrumento[6] == 'marron' %}selected{% endif %}>Marrón</option>
+            <option value="gris" {% if instrumento[6] == 'gris' %}selected{% endif %}>Gris</option>
+            <option value="negro" {% if instrumento[6] == 'negro' %}selected{% endif %}>Negro</option>
+            <option value="blanco" {% if instrumento[6] == 'blanco' %}selected{% endif %}>Blanco</option>
+        </select>
+
+        <label for="serial">N° de Serial:</label>
+        <input type="text" id="serial" name="serial" value="{{ instrumento[7] }}">
+
+        <label for="inventario">N° de Inventario:</label>
+        <input type="text" id="inventario" name="inventario" value="{{ instrumento[8] }}">
+
+        <label for="accesorio">Accesorio:</label>
+        <input type="text" id="accesorio" name="accesorio" value="{{ instrumento[9] }}">
+
+        <label for="condicion">Condición:</label>
+        <input type="text" id="condicion" name="condicion" value="{{ instrumento[10] }}">
+
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion" name="ubicacion" value="{{ instrumento[11] }}">
+
+        <label for="procedencia">Procedencia:</label>
+        <input type="text" id="procedencia" name="procedencia" value="{{ instrumento[12] }}">
+
+        <label for="comodato_vigente">Comodato Vigente:</label>
+        <input type="text" id="comodato_vigente" name="comodato_vigente" value="{{ instrumento[13] }}">
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" rows="4" cols="50">{{ instrumento[14] }}</textarea>
+
+        <label for="id_nucleo">ID del Núcleo:</label>
+        <input type="number" id="id_nucleo" name="id_nucleo" value="{{ instrumento[15] }}">
+
+        <!-- Botón para confirmar eliminación -->
+        <button type="button" onclick="confirmarEliminacion('{{ instrumento[0] }}')">Eliminar</button>
+
+        <input type="submit" name="editar" value="Guardar">
+    </form>
+
+    <a href="{{ url_for('instrumentos.lista_instrumentos') }}" style="margin-top: 10px;">Volver a la Lista de Bienes</a>
+
+    <!-- Script JavaScript para confirmar la eliminación -->
+    <script>
+        function confirmarEliminacion(instrumentoId) {
+            if (confirm("¿Estás seguro de que deseas eliminarlo ?")) {
+                console.log("ID del instrumento a eliminar: " + instrumentoId);
+                // Envía una solicitud POST a la URL de eliminación
+                fetch("{{ url_for('instrumentos.eliminar_instrumento', id=instrumento[0]) }}", { method: 'POST' })
+                    .then(response => {
+                        if (response.redirected) {
+                            // Si se redirige después de la eliminación, navega a la nueva ubicación
+                            window.location.href = response.url;
+                        }
+                    });
+            }
+        }
+    </script>
+</body>
+</html>
+

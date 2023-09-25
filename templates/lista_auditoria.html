@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Auditoría</title>
+    <!-- Agrega cualquier estilo CSS necesario -->
+</head>
+<body>
+    <header>
+        <h1>Registro de Auditoría</h1>
+    </header>
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Acción</th>
+                    <th>Tabla Afectada</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in auditoria %}
+                <tr>
+                    <td>{{ registro.Usuario }}</td>
+                    <td>{{ registro.Accion }}</td>
+                    <td>{{ registro.Tabla_Afectada }}</td>
+                    <td>{{ registro.Fecha }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <footer>
+        <p>&copy; 2023 Tu Empresa</p>
+    </footer>
+</body>
+</html>
