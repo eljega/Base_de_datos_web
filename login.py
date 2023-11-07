@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import sqlite3
-from flask_bcrypt import Bcrypt  # Importa la clase Bcrypt
+from flask_bcrypt import Bcrypt 
 
 # Crea un Blueprint para el módulo de inicio de sesión
 login_bp = Blueprint('login', __name__)
@@ -15,12 +15,12 @@ class Usuario(UserMixin):
         self.id_nucleo = id_nucleo
 
 
-# Configura el objeto LoginManager
+
 login_manager = LoginManager()
 
-bcrypt = Bcrypt()  # Crea una instancia de Bcrypt
+bcrypt = Bcrypt()
 
-# Configura la carga de usuarios desde la base de datos (debes implementar esta función)
+
 @login_manager.user_loader
 def cargar_usuario(id):
     conn = sqlite3.connect("sistema_musical.db")
@@ -34,9 +34,6 @@ def cargar_usuario(id):
     return None
 
 
-
-# Ruta para iniciar sesión
-# Ruta para iniciar sesión
 @login_bp.route('/login', methods=['GET', 'POST'])
 def iniciar_sesion():
     if request.method == 'POST':
@@ -80,6 +77,3 @@ def inicio():
 def politica_privacidad():
     return render_template('politica_privacidad.html')
 
-
-# Agrega las rutas y funciones para la gestión de usuarios aquí (por ejemplo, agregar, editar, eliminar usuarios)
-# ...
