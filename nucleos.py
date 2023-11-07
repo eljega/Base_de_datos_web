@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 import sqlite3
-from flask_login import login_manager  # Importa login_manager
+from flask_login import login_manager
 from flask_login import LoginManager
 from flask_login import current_user, login_required
 
@@ -70,7 +70,6 @@ def agregar_nucleo():
         estatus_inmueble = request.form['estatus_inmueble']
         infraestructura = request.form['infraestructura']
 
-        # Resto de los campos
         cursor.execute("INSERT INTO Nucleos (Nombre_Nucleo, Codigo, Fecha_Apertura, Direccion, Telefono, Estatus_Inmueble, Infraestructura) VALUES (?, ?, ?, ?, ?, ?, ?)",
                (nombre, codigo, fecha_apertura, direccion, telefono, estatus_inmueble, infraestructura))
 
@@ -82,7 +81,7 @@ def agregar_nucleo():
 @nucleos_bp.route('/nucleos/editar_nucleo/<int:id>', methods=['GET', 'POST'])
 def editar_nucleo(id):
     if request.method == 'POST':
-        # Lógica para editar un nucleo en la base de datos
+
         conn = sqlite3.connect("sistema_musical.db")
         cursor = conn.cursor()
         
