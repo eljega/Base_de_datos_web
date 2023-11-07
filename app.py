@@ -1,9 +1,9 @@
 from flask import Flask, redirect, url_for
 from maestros import maestros_bp  # Importa el Blueprint de maestros
-from alumnos import alumnos_bp  # Importa el Blueprint de alumnos
-from nucleos import nucleos_bp  # Importa el Blueprint de nucleos
-from instrumentos import instrumentos_bp  # Importa el Blueprint de los instrumentos
-from login import login_bp  # Importa el Blueprint de inicio de sesión (login.py)
+from alumnos import alumnos_bp  
+from nucleos import nucleos_bp 
+from instrumentos import instrumentos_bp 
+from login import login_bp 
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import sqlite3, datetime
@@ -13,12 +13,11 @@ app = Flask(__name__, static_url_path='/static')
 login_manager = LoginManager()
 login_manager.init_app(app)
 bcrypt = Bcrypt(app)
-# Configuración para servir archivos estáticos desde la carpeta "imagenes"
 
-app.secret_key = '123'  # Reemplaza 'tu_clave_secreta_aqui' con una clave secreta real y segura
+app.secret_key = ''  
 
-# Registra la función user_loader
-from login import cargar_usuario  # Asegúrate de que esta importación sea correcta
+
+from login import cargar_usuario 
 
 login_manager.user_loader(cargar_usuario)
 
@@ -27,7 +26,7 @@ app.register_blueprint(alumnos_bp)
 app.register_blueprint(maestros_bp)
 app.register_blueprint(nucleos_bp)
 app.register_blueprint(instrumentos_bp)
-app.register_blueprint(login_bp)  # Registra el Blueprint de inicio de sesión
+app.register_blueprint(login_bp)  
 
 def registrar_auditoria(usuario, accion, detalles):
     conn = sqlite3.connect("sistema_musical.db")
